@@ -1,0 +1,1299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Portfolio of Bolaji Oladunjoye – Web Developer & Virtual Assistant">
+  <title>Oladunjoye Bolaji | Web Developer & Virtual Assistant</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet">
+
+  <style>
+    /* ── TOKENS ─────────────────────────────────── */
+    :root {
+      --blue:        #1a6aff;
+      --blue-mid:    #0f52cc;
+      --cyan:        #00b4ff;
+      --accent:      #00e5ff;
+      --dark:        #060c1a;
+      --dark-2:      #0c1428;
+      --light:       #e4ecfa;
+      --muted:       #8898bb;
+      --gray:        #4e5f7a;
+      --success:     #00d68f;
+      --danger:      #ff3860;
+      --warn:        #ffaa00;
+      --card-bg:     rgba(9,14,32,0.93);
+      --card-border: rgba(26,106,255,0.16);
+      --card-hover:  rgba(26,106,255,0.42);
+      --radius-lg:   22px;
+      --radius-md:   14px;
+      --radius-sm:   8px;
+    }
+
+    /* ── RESET ──────────────────────────────────── */
+    *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+    html { scroll-behavior:smooth; }
+    body {
+      font-family:'DM Sans',sans-serif;
+      background:var(--dark);
+      color:var(--light);
+      line-height:1.65;
+      overflow-x:hidden;
+    }
+    ::-webkit-scrollbar { width:6px; }
+    ::-webkit-scrollbar-track { background:var(--dark); }
+    ::-webkit-scrollbar-thumb { background:var(--blue); border-radius:3px; }
+    ::selection { background:var(--blue); color:#fff; }
+
+    /* ── BACKGROUND ─────────────────────────────── */
+    .tech-bg {
+      position:fixed; inset:0; z-index:-2;
+      background:linear-gradient(145deg, #060c1a 0%, #0c1428 55%, #111e36 100%);
+    }
+    .tech-grid {
+      position:absolute; inset:0;
+      background-image:
+        linear-gradient(rgba(26,106,255,.06) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(26,106,255,.06) 1px, transparent 1px);
+      background-size:56px 56px;
+      animation:gridDrift 28s linear infinite;
+    }
+    @keyframes gridDrift { from{transform:translate(0,0)} to{transform:translate(56px,56px)} }
+    .floating-elements { position:absolute; inset:0; overflow:hidden; pointer-events:none; }
+    .fe {
+      position:absolute; font-size:1.8rem; opacity:.05;
+      animation:floatUp 9s ease-in-out infinite;
+    }
+    .fe:nth-child(1){top:9%;left:7%;animation-delay:0s}
+    .fe:nth-child(2){top:18%;right:11%;animation-delay:1.6s}
+    .fe:nth-child(3){bottom:33%;left:17%;animation-delay:3.2s}
+    .fe:nth-child(4){bottom:13%;right:21%;animation-delay:4.8s}
+    .fe:nth-child(5){top:53%;left:4%;animation-delay:6.4s}
+    .fe:nth-child(6){top:63%;right:5%;animation-delay:2.4s}
+    @keyframes floatUp{0%,100%{transform:translateY(0) rotate(0deg)}50%{transform:translateY(-22px) rotate(12deg)}}
+
+    /* ── NAV ─────────────────────────────────────── */
+    nav { position:fixed; top:18px; right:18px; z-index:1000; }
+    .nav-toggle {
+      width:52px; height:52px;
+      background:rgba(9,14,32,.96);
+      backdrop-filter:blur(14px);
+      border:1px solid var(--card-border);
+      border-radius:50%;
+      display:flex; align-items:center; justify-content:center;
+      cursor:pointer; font-size:1.25rem; color:var(--light);
+      transition:all .3s ease; user-select:none;
+    }
+    .nav-toggle:hover { border-color:var(--card-hover); transform:scale(1.08); }
+    .nav-menu {
+      position:absolute; top:66px; right:0;
+      background:rgba(9,14,32,.98);
+      backdrop-filter:blur(22px);
+      border:1px solid var(--card-border);
+      border-radius:18px;
+      padding:1.4rem 1.8rem;
+      min-width:172px;
+      opacity:0; visibility:hidden;
+      transform:translateY(-10px) scale(.95);
+      transition:all .28s cubic-bezier(.16,1,.3,1);
+    }
+    .nav-menu.open { opacity:1; visibility:visible; transform:translateY(0) scale(1); }
+    .nav-menu a {
+      display:block; color:var(--muted);
+      text-decoration:none; font-weight:500; font-size:.97rem;
+      padding:.7rem 0; border-bottom:1px solid rgba(26,106,255,.07);
+      transition:color .25s, transform .28s, opacity .28s;
+      opacity:0; transform:translateX(10px);
+    }
+    .nav-menu.open a { opacity:1; transform:translateX(0); }
+    .nav-menu.open a:nth-child(1){transition-delay:.04s}
+    .nav-menu.open a:nth-child(2){transition-delay:.09s}
+    .nav-menu.open a:nth-child(3){transition-delay:.14s}
+    .nav-menu.open a:nth-child(4){transition-delay:.19s}
+    .nav-menu.open a:nth-child(5){transition-delay:.24s}
+    .nav-menu a:last-child { border-bottom:none; }
+    .nav-menu a:hover, .nav-menu a.active { color:var(--blue); }
+    .nav-backdrop {
+      position:fixed; inset:0;
+      background:rgba(0,0,0,.45);
+      opacity:0; visibility:hidden;
+      transition:all .3s; z-index:999;
+    }
+    .nav-backdrop.open { opacity:1; visibility:visible; }
+
+    /* ── SECTIONS ────────────────────────────────── */
+    .section {
+      min-height:100vh; display:flex; align-items:center;
+      justify-content:center; padding:6rem 1.5rem; position:relative;
+    }
+    .container { max-width:1200px; width:100%; margin:0 auto; }
+
+    /* ── BOX (section wrapper) ───────────────────── */
+    .box {
+      background:var(--card-bg);
+      backdrop-filter:blur(22px);
+      padding:3rem; border-radius:var(--radius-lg);
+      border:1px solid var(--card-border);
+      position:relative; overflow:hidden;
+      /* stacking anim start */
+      transform:translateY(64px); opacity:0;
+      transition:transform .85s cubic-bezier(.16,1,.3,1),
+                 opacity    .85s cubic-bezier(.16,1,.3,1),
+                 border-color .3s, box-shadow .3s;
+    }
+    .box.visible { transform:translateY(0); opacity:1; }
+    .hero .box { transform:translateY(0); opacity:1; }
+    .box::after {
+      content:'';
+      position:absolute; top:0; left:-100%; width:100%; height:2px;
+      background:linear-gradient(90deg, transparent, var(--blue), var(--cyan), transparent);
+      transition:left .65s ease;
+    }
+    .box:hover::after { left:100%; }
+    .box:hover { border-color:var(--card-hover); box-shadow:0 28px 56px rgba(26,106,255,.1); }
+
+    /* ── HERO ─────────────────────────────────────── */
+    .hero {
+      text-align:center;
+      background:radial-gradient(ellipse at 50% 0%, rgba(26,106,255,.14) 0%, transparent 68%);
+    }
+    .hero-name {
+      font-family:'Syne',sans-serif; font-weight:800;
+      font-size:clamp(1.6rem,4.5vw,3rem);
+      color:var(--light); margin-bottom:.5rem; letter-spacing:-.025em;
+    }
+    .hero h1 {
+      font-family:'Syne',sans-serif; font-weight:700;
+      font-size:clamp(1.1rem,3.2vw,2.1rem);
+      background:linear-gradient(135deg,var(--blue),var(--cyan),var(--accent));
+      -webkit-background-clip:text; -webkit-text-fill-color:transparent;
+      background-clip:text;
+      margin-bottom:1.5rem; letter-spacing:-.01em;
+    }
+    .hero .subtitle {
+      font-size:clamp(.95rem,2vw,1.2rem);
+      color:var(--muted); margin-bottom:2.5rem;
+      font-weight:300; min-height:1.8em;
+    }
+    /* ── TYPEWRITER ─────────────── */
+    .tw-cursor {
+      display:inline-block; width:2px; height:.9em;
+      background:var(--blue); margin-left:2px;
+      vertical-align:text-bottom;
+      animation:blink .75s step-end infinite;
+    }
+    @keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
+
+    /* tech icons row */
+    .tech-icons { display:flex; justify-content:center; gap:1rem; margin:1.8rem 0; flex-wrap:wrap; }
+    .tech-icon {
+      width:54px; height:54px;
+      background:rgba(26,106,255,.1); border:1px solid rgba(26,106,255,.18);
+      border-radius:13px; display:flex; align-items:center; justify-content:center;
+      font-size:1.3rem; font-weight:700; color:var(--blue);
+      transition:all .3s ease; cursor:default;
+    }
+    .tech-icon:hover { background:rgba(26,106,255,.22); border-color:var(--blue); transform:translateY(-5px) scale(1.08); }
+
+    .cta-button {
+      display:inline-flex; align-items:center; gap:.6rem;
+      padding:.9rem 2.2rem;
+      background:linear-gradient(135deg,var(--blue),var(--cyan));
+      color:#fff; text-decoration:none; border:none; cursor:pointer;
+      border-radius:50px; font-weight:600; font-size:1rem;
+      transition:all .3s ease; position:relative; overflow:hidden;
+    }
+    .cta-button::before {
+      content:''; position:absolute; inset:0;
+      background:linear-gradient(135deg,var(--cyan),var(--accent));
+      opacity:0; transition:opacity .3s;
+    }
+    .cta-button span { position:relative; z-index:1; }
+    .cta-button:hover { transform:translateY(-3px); box-shadow:0 14px 36px rgba(26,106,255,.38); }
+    .cta-button:hover::before { opacity:1; }
+
+    /* ── SECTION HEADER ──────────────────────────── */
+    .section-header { text-align:center; margin-bottom:3rem; }
+    .section-title {
+      font-family:'Syne',sans-serif; font-weight:800;
+      font-size:clamp(1.8rem,3.5vw,2.8rem);
+      background:linear-gradient(135deg,var(--blue),var(--cyan));
+      -webkit-background-clip:text; -webkit-text-fill-color:transparent;
+      background-clip:text; letter-spacing:-.025em; margin-bottom:.7rem;
+    }
+    .section-subtitle { font-size:1.05rem; color:var(--gray); max-width:540px; margin:0 auto; }
+
+    /* ── ABOUT ───────────────────────────────────── */
+    .about-content {
+      display:grid; grid-template-columns:240px 1fr; gap:3rem; align-items:center;
+    }
+    .profile-container { text-align:center; }
+    .avatar-ring {
+      width:150px; height:150px; margin:0 auto 1.2rem;
+      border-radius:50%; padding:3px;
+      background:linear-gradient(135deg,var(--blue),var(--accent));
+      display:flex;
+    }
+    .avatar-inner {
+      width:100%; height:100%; border-radius:50%;
+      background:var(--dark-2); display:flex;
+      align-items:center; justify-content:center; font-size:3.8rem;
+      overflow:hidden;
+    }
+    .avatar-inner img { width:100%; height:100%; object-fit:cover; border-radius:50%; }
+    .profile-container h3 { font-family:'Syne',sans-serif; font-size:1.2rem; font-weight:700; }
+    .stats-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:.9rem; margin-top:2rem; }
+    .stat-item {
+      text-align:center; padding:.9rem .4rem;
+      background:rgba(26,106,255,.08); border-radius:var(--radius-md);
+      border:1px solid rgba(26,106,255,.14);
+    }
+    .stat-number {
+      font-family:'Syne',sans-serif; font-size:1.7rem; font-weight:800;
+      color:var(--blue); display:block;
+    }
+    .stat-label { font-size:.78rem; color:var(--gray); margin-top:.15rem; }
+
+    /* ── SERVICES ────────────────────────────────── */
+    .services-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:1.4rem; margin-top:2rem; }
+    .service-card {
+      background:rgba(7,11,25,.75); padding:2rem; border-radius:18px;
+      border:1px solid var(--card-border); transition:all .35s ease;
+      position:relative; overflow:hidden;
+      transform:translateY(44px); opacity:0;
+    }
+    .service-card.visible { transform:translateY(0); opacity:1; }
+    .service-card.visible:nth-child(1){transition:transform .6s .0s cubic-bezier(.16,1,.3,1), opacity .6s .0s}
+    .service-card.visible:nth-child(2){transition:transform .6s .13s cubic-bezier(.16,1,.3,1), opacity .6s .13s}
+    .service-card.visible:nth-child(3){transition:transform .6s .26s cubic-bezier(.16,1,.3,1), opacity .6s .26s}
+    .service-card::before {
+      content:''; position:absolute; inset:0;
+      background:linear-gradient(135deg,rgba(26,106,255,.07) 0%,transparent 60%);
+      opacity:0; transition:opacity .35s;
+    }
+    .service-card:hover { transform:translateY(-8px) !important; border-color:var(--card-hover); box-shadow:0 18px 44px rgba(26,106,255,.14); }
+    .service-card:hover::before { opacity:1; }
+    .service-icon {
+      width:70px; height:70px;
+      background:linear-gradient(135deg,var(--blue),var(--cyan));
+      border-radius:17px; display:flex; align-items:center;
+      justify-content:center; margin-bottom:1.2rem; font-size:1.7rem;
+      transition:transform .35s ease;
+    }
+    .service-card:hover .service-icon { transform:scale(1.1) rotate(6deg); }
+    .service-card h3 { font-family:'Syne',sans-serif; font-size:1.2rem; font-weight:700; margin-bottom:.55rem; }
+    .service-card p { color:var(--muted); font-size:.92rem; line-height:1.65; }
+
+    /* ── PORTFOLIO ───────────────────────────────── */
+    .portfolio-grid {
+      display:grid;
+      grid-template-columns:repeat(auto-fill,minmax(340px,1fr));
+      gap:1.8rem; margin-top:2rem;
+    }
+    .portfolio-card {
+      background:rgba(7,11,25,.75); border-radius:20px;
+      overflow:hidden; border:1px solid var(--card-border);
+      transition:border-color .3s, box-shadow .3s;
+      position:relative;
+      /* stacking anim */
+      transform:translateY(70px); opacity:0;
+    }
+    /* stagger in js via nth-child style */
+    .portfolio-card.visible { transform:translateY(0); opacity:1; }
+    .portfolio-card:hover { border-color:rgba(26,106,255,.42); box-shadow:0 22px 52px rgba(26,106,255,.17); }
+    .portfolio-card:hover .portfolio-image svg,
+    .portfolio-card:hover .portfolio-image img { transform:scale(1.04); }
+
+    .portfolio-badge {
+      position:absolute; top:12px; left:12px; z-index:3;
+      background:linear-gradient(135deg,var(--blue),var(--cyan));
+      color:#fff; font-size:.68rem; font-weight:700;
+      padding:.22rem .72rem; border-radius:20px;
+      letter-spacing:.06em; text-transform:uppercase;
+    }
+    .portfolio-image {
+      height:215px; overflow:hidden; position:relative;
+      background:var(--dark-2);
+    }
+    .portfolio-image svg,
+    .portfolio-image img {
+      width:100%; height:100%; display:block;
+      transition:transform .45s ease;
+    }
+    .portfolio-image img { object-fit:cover; }
+    .img-overlay {
+      position:absolute; inset:0;
+      background:linear-gradient(to bottom, transparent 40%, rgba(7,11,25,.75) 100%);
+      opacity:0; transition:opacity .35s;
+    }
+    .portfolio-card:hover .img-overlay { opacity:1; }
+
+    .portfolio-content { padding:1.7rem; }
+    .portfolio-content h3 { font-family:'Syne',sans-serif; font-size:1.15rem; font-weight:700; margin-bottom:.55rem; }
+    .portfolio-content p { color:var(--muted); font-size:.9rem; line-height:1.6; margin-bottom:1.2rem; }
+    .tech-stack { display:flex; flex-wrap:wrap; gap:.38rem; margin-bottom:1.2rem; }
+    .tech-tag {
+      background:rgba(26,106,255,.12); color:var(--cyan);
+      padding:.26rem .72rem; border-radius:20px;
+      font-size:.74rem; font-weight:600; letter-spacing:.02em;
+    }
+    .portfolio-button {
+      background:linear-gradient(135deg,var(--blue),var(--cyan));
+      color:#fff; border:none; padding:.72rem 1.4rem; border-radius:25px;
+      cursor:pointer; font-weight:600; font-size:.88rem;
+      transition:all .3s ease; width:100%;
+      display:flex; align-items:center; justify-content:center; gap:.5rem;
+      font-family:'DM Sans',sans-serif;
+    }
+    .portfolio-button:hover { transform:translateY(-2px); box-shadow:0 10px 26px rgba(26,106,255,.32); }
+
+    /* ── CONTACT ─────────────────────────────────── */
+    .contact-content { display:grid; grid-template-columns:1fr 1fr; gap:3.5rem; align-items:start; }
+    .contact-info h3 { font-family:'Syne',sans-serif; font-size:1.35rem; font-weight:700; color:var(--blue); margin-bottom:.75rem; }
+    .contact-item { display:flex; align-items:center; gap:.9rem; margin-bottom:1.3rem; }
+    .contact-icon {
+      width:46px; height:46px; min-width:46px;
+      background:rgba(26,106,255,.1); border-radius:50%;
+      border:1px solid rgba(26,106,255,.18);
+      display:flex; align-items:center; justify-content:center;
+      font-size:1.1rem; color:var(--blue);
+    }
+    .contact-item strong { display:block; font-size:.88rem; font-weight:600; margin-bottom:.1rem; }
+    .contact-item p { color:var(--muted); font-size:.88rem; margin:0; }
+    .social-links { display:flex; gap:.75rem; margin-top:1.6rem; flex-wrap:wrap; }
+    .social-link {
+      width:44px; height:44px;
+      background:rgba(26,106,255,.1); border:1px solid rgba(26,106,255,.22);
+      border-radius:50%; display:inline-flex; align-items:center;
+      justify-content:center; color:var(--blue); text-decoration:none;
+      font-size:.9rem; font-weight:700; transition:all .3s ease;
+    }
+    .social-link:hover { background:var(--blue); color:#fff; transform:translateY(-4px); box-shadow:0 10px 24px rgba(26,106,255,.34); }
+    .contact-form { display:flex; flex-direction:column; gap:1.1rem; }
+    .form-group { position:relative; }
+    .form-input, .form-textarea {
+      width:100%; padding:.88rem 1.1rem;
+      background:rgba(7,11,25,.9); border:1px solid rgba(26,106,255,.16);
+      border-radius:var(--radius-md); color:var(--light);
+      font-size:.95rem; font-family:'DM Sans',sans-serif;
+      transition:all .3s;
+    }
+    .form-input:focus, .form-textarea:focus {
+      outline:none; border-color:var(--blue);
+      box-shadow:0 0 0 3px rgba(26,106,255,.1);
+    }
+    .form-input::placeholder, .form-textarea::placeholder { color:var(--gray); }
+    .form-textarea { resize:vertical; min-height:115px; }
+    .submit-button {
+      background:linear-gradient(135deg,var(--blue),var(--cyan));
+      color:#fff; border:none; padding:.88rem 2rem;
+      border-radius:var(--radius-md); cursor:pointer;
+      font-weight:600; font-size:.97rem; font-family:'DM Sans',sans-serif;
+      transition:all .3s; display:flex; align-items:center; justify-content:center; gap:.5rem;
+    }
+    .submit-button:hover { transform:translateY(-2px); box-shadow:0 12px 32px rgba(26,106,255,.28); }
+
+    /* ── MODAL ───────────────────────────────────── */
+    .modal-overlay {
+      position:fixed; inset:0;
+      background:rgba(3,6,18,.88);
+      backdrop-filter:blur(7px);
+      z-index:2000; display:flex;
+      align-items:flex-end; justify-content:center;
+      opacity:0; visibility:hidden;
+      transition:all .35s ease;
+    }
+    @media(min-width:640px){ .modal-overlay{ align-items:center; } }
+    .modal-overlay.open { opacity:1; visibility:visible; }
+
+    .modal-sheet {
+      background:linear-gradient(180deg,#0d1628 0%,#060c1a 100%);
+      border:1px solid var(--card-border);
+      border-radius:24px 24px 0 0;
+      padding:2.4rem 1.8rem 2rem;
+      max-width:640px; width:100%;
+      max-height:92vh; overflow-y:auto;
+      transform:translateY(60px);
+      transition:transform .42s cubic-bezier(.16,1,.3,1);
+      position:relative;
+    }
+    @media(min-width:640px){
+      .modal-sheet{border-radius:24px; padding:2.4rem 2.6rem;}
+    }
+    .modal-overlay.open .modal-sheet { transform:translateY(0); }
+    .modal-drag { width:44px; height:4px; background:rgba(255,255,255,.12); border-radius:2px; margin:0 auto 1.6rem; }
+    @media(min-width:640px){ .modal-drag{display:none;} }
+
+    .modal-close {
+      position:absolute; top:1.2rem; right:1.2rem;
+      width:34px; height:34px; border-radius:50%;
+      border:1px solid var(--card-border);
+      background:rgba(26,106,255,.08);
+      color:var(--muted); font-size:.9rem;
+      cursor:pointer; display:flex; align-items:center; justify-content:center;
+      transition:all .25s;
+    }
+    .modal-close:hover { background:var(--blue); color:#fff; }
+
+    .modal-type {
+      display:inline-block;
+      background:rgba(26,106,255,.12); border:1px solid rgba(26,106,255,.28);
+      color:var(--cyan); font-size:.72rem; font-weight:700;
+      padding:.28rem .78rem; border-radius:20px;
+      letter-spacing:.06em; text-transform:uppercase; margin-bottom:.9rem;
+    }
+    .modal-title { font-family:'Syne',sans-serif; font-size:1.75rem; font-weight:800; margin-bottom:.8rem; }
+    .modal-desc { color:var(--muted); font-size:.97rem; line-height:1.72; margin-bottom:1.5rem; }
+
+    .modal-metrics { display:grid; grid-template-columns:repeat(auto-fit,minmax(130px,1fr)); gap:.9rem; margin-bottom:1.6rem; }
+    .metric-box {
+      background:rgba(26,106,255,.07); border:1px solid rgba(26,106,255,.14);
+      border-radius:var(--radius-md); padding:.9rem; text-align:center;
+    }
+    .metric-val { font-family:'Syne',sans-serif; font-size:1.45rem; font-weight:800; color:var(--blue); display:block; }
+    .metric-lbl { font-size:.75rem; color:var(--gray); margin-top:.18rem; }
+
+    .modal-sub { font-family:'Syne',sans-serif; font-size:.78rem; font-weight:700; color:var(--gray); letter-spacing:.08em; text-transform:uppercase; margin-bottom:.7rem; }
+    .modal-tags { display:flex; flex-wrap:wrap; gap:.38rem; margin-bottom:1.5rem; }
+    .modal-features { list-style:none; display:flex; flex-direction:column; gap:.55rem; }
+    .modal-features li {
+      display:flex; align-items:flex-start; gap:.65rem;
+      color:var(--muted); font-size:.94rem; line-height:1.55;
+    }
+    .modal-features li::before {
+      content:'✓'; min-width:20px; width:20px; height:20px;
+      background:rgba(0,214,143,.12); border-radius:50%;
+      display:flex; align-items:center; justify-content:center;
+      font-size:.68rem; color:var(--success); margin-top:.1rem;
+    }
+
+    /* ── RESPONSIVE ──────────────────────────────── */
+    @media(max-width:900px){
+      .about-content { grid-template-columns:1fr; text-align:center; }
+      .avatar-ring { margin-bottom:1.5rem; }
+      .contact-content { grid-template-columns:1fr; gap:2.2rem; }
+    }
+    @media(max-width:640px){
+      .section { padding:5rem 1rem; }
+      .box { padding:1.7rem 1.1rem; }
+      .portfolio-grid { grid-template-columns:1fr; }
+      .services-grid { grid-template-columns:1fr; }
+      .stats-grid { grid-template-columns:1fr; gap:.7rem; }
+      .tech-icons { gap:.7rem; }
+      .tech-icon { width:48px; height:48px; font-size:1.1rem; }
+      .modal-metrics { grid-template-columns:repeat(2,1fr); }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ── BACKGROUND ───────────────────────────────────── -->
+<div class="tech-bg">
+  <div class="tech-grid"></div>
+  <div class="floating-elements">
+    <span class="fe">⚡</span><span class="fe">💻</span><span class="fe">🖥️</span>
+    <span class="fe">💾</span><span class="fe">📱</span><span class="fe">☁️</span>
+  </div>
+</div>
+
+<!-- ── NAV ──────────────────────────────────────────── -->
+<div class="nav-backdrop" id="navBackdrop"></div>
+<nav>
+  <div class="nav-toggle" id="navToggle" aria-label="Menu">☰</div>
+  <div class="nav-menu" id="navMenu">
+    <a href="#home">Home</a>
+    <a href="#about">About</a>
+    <a href="#services">Services</a>
+    <a href="#portfolio">Portfolio</a>
+    <a href="#contact">Contact</a>
+  </div>
+</nav>
+
+<!-- ── HERO ─────────────────────────────────────────── -->
+<section id="home" class="section hero">
+  <div class="container">
+    <div class="box">
+      <p class="hero-name">Oladunjoye Bolaji</p>
+      <h1>Web Developer &amp; Virtual Assistant</h1>
+      <p class="subtitle"><span id="twText"></span><span class="tw-cursor"></span></p>
+      <div class="tech-icons">
+        <div class="tech-icon" title="React">⚛️</div>
+        <div class="tech-icon" title="JavaScript" style="font-size:.85rem">JS</div>
+        <div class="tech-icon" title="Node.js">🟢</div>
+        <div class="tech-icon" title="HTML5" style="font-size:.8rem">H5</div>
+        <div class="tech-icon" title="CSS3" style="font-size:.8rem">C3</div>
+        <div class="tech-icon" title="WordPress" style="font-size:.8rem">WP</div>
+      </div>
+      <a href="#contact" class="cta-button">
+        <span>🚀</span><span>Let's Work Together</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ── ABOUT ─────────────────────────────────────────── -->
+<section id="about" class="section">
+  <div class="container">
+    <div class="box" data-anim>
+      <div class="section-header">
+        <h2 class="section-title">About Me</h2>
+        <p class="section-subtitle">Passionate developer and efficient virtual assistant delivering exceptional results</p>
+      </div>
+      <div class="about-content">
+        <div class="profile-container">
+          <div class="avatar-ring">
+            <div class="avatar-inner">
+              <img src="mypro.jpg" alt="Profile Image" onerror="this.style.display='none';this.parentNode.innerHTML='👤'">
+            </div>
+          </div>
+          <h3>Bolaji Oladunjoye</h3>
+          <p style="color:var(--gray);margin-top:.4rem;font-size:.88rem">Full-Stack Developer &amp; VA Expert</p>
+        </div>
+        <div>
+          <p style="font-size:1.02rem;line-height:1.85;margin-bottom:2rem;color:var(--muted)">
+            Hi! I'm a passionate web developer and virtual assistant with expertise in creating modern, responsive websites and streamlining business operations. I combine technical skills with administrative efficiency to help businesses grow and succeed in the digital world.
+          </p>
+          <div class="stats-grid">
+            <div class="stat-item"><span class="stat-number" data-count="10">0</span><span class="stat-label">Projects Completed</span></div>
+            <div class="stat-item"><span class="stat-number" data-count="3">0</span><span class="stat-label">Years Experience</span></div>
+            <div class="stat-item"><span class="stat-number" data-pct>100%</span><span class="stat-label">Client Satisfaction</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── SERVICES ───────────────────────────────────────── -->
+<section id="services" class="section">
+  <div class="container">
+    <div class="box" data-anim>
+      <div class="section-header">
+        <h2 class="section-title">Services</h2>
+        <p class="section-subtitle">Comprehensive solutions for your digital and administrative needs</p>
+      </div>
+      <div class="services-grid" id="servicesGrid">
+        <div class="service-card">
+          <div class="service-icon">📋</div>
+          <h3>Virtual Assistant</h3>
+          <p>Streamline your workflow with expert administrative support including scheduling, data entry, email management, and process automation using tools like Google Workspace and Asana.</p>
+        </div>
+        <div class="service-card">
+          <div class="service-icon">⚡</div>
+          <h3>Web Development</h3>
+          <p>Custom, responsive websites and applications built with modern technologies including HTML5, CSS3, JavaScript, React, and Node.js — from concept to deployment.</p>
+        </div>
+        <div class="service-card">
+          <div class="service-icon">🔧</div>
+          <h3>Website Maintenance</h3>
+          <p>Keep your digital presence running smoothly with regular updates, security monitoring, performance optimization, and ongoing technical support services.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── PORTFOLIO ──────────────────────────────────────── -->
+<section id="portfolio" class="section">
+  <div class="container">
+    <div class="box" data-anim>
+      <div class="section-header">
+        <h2 class="section-title">Portfolio</h2>
+        <p class="section-subtitle">Real projects combining technical excellence with business impact</p>
+      </div>
+      <div class="portfolio-grid" id="portfolioGrid">
+
+        <!-- 1 ── Past Questions Platform -->
+        <div class="portfolio-card" data-modal="pq">
+          <span class="portfolio-badge">LIVE</span>
+          <div class="portfolio-image">
+            <svg viewBox="0 0 400 215" xmlns="http://www.w3.org/2000/svg">
+              <rect width="400" height="215" fill="#08101e"/>
+              <defs><pattern id="g1" width="20" height="20" patternUnits="userSpaceOnUse"><path d="M20 0L0 0 0 20" fill="none" stroke="rgba(26,106,255,.08)" stroke-width=".5"/></pattern></defs>
+              <rect width="400" height="215" fill="url(#g1)"/>
+              <rect x="16" y="16" width="155" height="180" rx="12" fill="rgba(26,106,255,.1)" stroke="rgba(26,106,255,.28)" stroke-width="1"/>
+              <rect x="28" y="32" width="131" height="7" rx="3.5" fill="rgba(26,106,255,.55)"/>
+              <rect x="28" y="46" width="100" height="4.5" rx="2.2" fill="rgba(255,255,255,.2)"/>
+              <rect x="28" y="56" width="115" height="4.5" rx="2.2" fill="rgba(255,255,255,.16)"/>
+              <rect x="28" y="66" width="88" height="4.5" rx="2.2" fill="rgba(255,255,255,.12)"/>
+              <text x="50" y="115" font-size="30" fill="rgba(26,106,255,.85)" font-family="sans-serif">?</text>
+              <text x="84" y="128" font-size="22" fill="rgba(0,180,255,.5)" font-family="sans-serif">?</text>
+              <text x="116" y="108" font-size="26" fill="rgba(26,106,255,.6)" font-family="sans-serif">?</text>
+              <rect x="28" y="157" width="86" height="22" rx="11" fill="rgba(255,90,31,.18)" stroke="rgba(255,90,31,.5)" stroke-width="1"/>
+              <text x="71" y="172" font-size="8.5" fill="#ff6b1f" font-family="sans-serif" text-anchor="middle" font-weight="700">FLUTTERWAVE</text>
+              <rect x="188" y="22" width="194" height="72" rx="11" fill="rgba(26,106,255,.1)" stroke="rgba(26,106,255,.22)" stroke-width="1"/>
+              <text x="200" y="43" font-size="9" fill="rgba(255,255,255,.5)" font-family="sans-serif">Total Transactions</text>
+              <text x="200" y="68" font-size="26" fill="var(--blue,#1a6aff)" font-family="sans-serif" font-weight="700">500+</text>
+              <rect x="188" y="108" width="92" height="62" rx="10" fill="rgba(0,214,143,.1)" stroke="rgba(0,214,143,.25)" stroke-width="1"/>
+              <text x="234" y="133" font-size="9" fill="rgba(0,214,143,.75)" font-family="sans-serif" text-anchor="middle">Uptime</text>
+              <text x="234" y="156" font-size="18" fill="#00d68f" font-family="sans-serif" text-anchor="middle" font-weight="700">99.9%</text>
+              <rect x="290" y="108" width="92" height="62" rx="10" fill="rgba(255,170,0,.1)" stroke="rgba(255,170,0,.25)" stroke-width="1"/>
+              <text x="336" y="133" font-size="9" fill="rgba(255,170,0,.75)" font-family="sans-serif" text-anchor="middle">Process</text>
+              <text x="336" y="156" font-size="18" fill="#ffaa00" font-family="sans-serif" text-anchor="middle" font-weight="700">−60%</text>
+            </svg>
+            <div class="img-overlay"></div>
+          </div>
+          <div class="portfolio-content">
+            <h3>Past Questions Platform</h3>
+            <p>Academic past-questions site with Flutterwave payment and automated user onboarding workflows. 500+ transactions at 99.9% uptime.</p>
+            <div class="tech-stack">
+              <span class="tech-tag">JavaScript</span><span class="tech-tag">Node.js</span>
+              <span class="tech-tag">Flutterwave</span><span class="tech-tag">Admin VA</span>
+            </div>
+            <button class="portfolio-button" onclick="openModal('pq')">👁 View Details</button>
+          </div>
+        </div>
+
+        <!-- 2 ── E-Commerce -->
+        <div class="portfolio-card" data-modal="ec">
+          <span class="portfolio-badge">WEB APP</span>
+          <div class="portfolio-image">
+            <svg viewBox="0 0 400 215" xmlns="http://www.w3.org/2000/svg">
+              <rect width="400" height="215" fill="#08101e"/>
+              <rect x="0" y="0" width="400" height="34" fill="rgba(26,106,255,.16)"/>
+              <circle cx="14" cy="17" r="5" fill="rgba(255,90,90,.7)"/><circle cx="28" cy="17" r="5" fill="rgba(255,200,0,.7)"/><circle cx="42" cy="17" r="5" fill="rgba(0,200,100,.7)"/>
+              <text x="200" y="22" font-size="10.5" fill="rgba(255,255,255,.65)" font-family="sans-serif" text-anchor="middle" font-weight="700">ShopHub — E-Commerce Dashboard</text>
+              <rect x="10" y="46" width="86" height="96" rx="9" fill="rgba(26,106,255,.1)" stroke="rgba(26,106,255,.2)" stroke-width="1"/>
+              <rect x="18" y="53" width="70" height="48" rx="6" fill="rgba(26,106,255,.18)"/>
+              <text x="53" y="82" font-size="24" text-anchor="middle" font-family="sans-serif">👟</text>
+              <text x="53" y="112" font-size="8" fill="rgba(255,255,255,.65)" text-anchor="middle" font-family="sans-serif">Sneakers</text>
+              <text x="53" y="127" font-size="9.5" fill="#00d68f" text-anchor="middle" font-family="sans-serif" font-weight="700">₦18,500</text>
+              <rect x="106" y="46" width="86" height="96" rx="9" fill="rgba(26,106,255,.1)" stroke="rgba(26,106,255,.2)" stroke-width="1"/>
+              <rect x="114" y="53" width="70" height="48" rx="6" fill="rgba(100,50,200,.22)"/>
+              <text x="149" y="82" font-size="24" text-anchor="middle" font-family="sans-serif">👜</text>
+              <text x="149" y="112" font-size="8" fill="rgba(255,255,255,.65)" text-anchor="middle" font-family="sans-serif">Handbag</text>
+              <text x="149" y="127" font-size="9.5" fill="#00d68f" text-anchor="middle" font-family="sans-serif" font-weight="700">₦24,000</text>
+              <rect x="202" y="46" width="86" height="96" rx="9" fill="rgba(255,170,0,.08)" stroke="rgba(255,170,0,.22)" stroke-width="1"/>
+              <rect x="210" y="53" width="70" height="48" rx="6" fill="rgba(255,170,0,.14)"/>
+              <text x="245" y="82" font-size="24" text-anchor="middle" font-family="sans-serif">⌚</text>
+              <text x="245" y="112" font-size="8" fill="rgba(255,255,255,.65)" text-anchor="middle" font-family="sans-serif">Watch</text>
+              <text x="245" y="127" font-size="9.5" fill="#00d68f" text-anchor="middle" font-family="sans-serif" font-weight="700">₦45,000</text>
+              <rect x="298" y="46" width="86" height="96" rx="9" fill="rgba(0,200,100,.07)" stroke="rgba(0,200,100,.18)" stroke-width="1"/>
+              <rect x="306" y="53" width="70" height="48" rx="6" fill="rgba(0,200,100,.12)"/>
+              <text x="341" y="82" font-size="24" text-anchor="middle" font-family="sans-serif">📱</text>
+              <text x="341" y="112" font-size="8" fill="rgba(255,255,255,.65)" text-anchor="middle" font-family="sans-serif">Mobile</text>
+              <text x="341" y="127" font-size="9.5" fill="#00d68f" text-anchor="middle" font-family="sans-serif" font-weight="700">₦78,000</text>
+              <rect x="10" y="155" width="120" height="40" rx="9" fill="rgba(26,106,255,.09)" stroke="rgba(26,106,255,.18)" stroke-width="1"/>
+              <text x="70" y="171" font-size="8" fill="rgba(255,255,255,.45)" font-family="sans-serif" text-anchor="middle">Daily Active Users</text>
+              <text x="70" y="187" font-size="14" fill="#1a6aff" font-family="sans-serif" text-anchor="middle" font-weight="700">1,000+</text>
+              <rect x="144" y="155" width="120" height="40" rx="9" fill="rgba(0,214,143,.08)" stroke="rgba(0,214,143,.18)" stroke-width="1"/>
+              <text x="204" y="171" font-size="8" fill="rgba(255,255,255,.45)" font-family="sans-serif" text-anchor="middle">Inventory</text>
+              <text x="204" y="187" font-size="14" fill="#00d68f" font-family="sans-serif" text-anchor="middle" font-weight="700">Real-time</text>
+              <rect x="278" y="155" width="112" height="40" rx="9" fill="rgba(255,170,0,.08)" stroke="rgba(255,170,0,.18)" stroke-width="1"/>
+              <text x="334" y="171" font-size="8" fill="rgba(255,255,255,.45)" font-family="sans-serif" text-anchor="middle">Automation</text>
+              <text x="334" y="187" font-size="14" fill="#ffaa00" font-family="sans-serif" text-anchor="middle" font-weight="700">✓ Active</text>
+            </svg>
+            <div class="img-overlay"></div>
+          </div>
+          <div class="portfolio-content">
+            <h3>E-Commerce Application</h3>
+            <p>Mobile-responsive e-commerce platform with seller dashboard and real-time inventory. Handled product data entry and automated customer workflows.</p>
+            <div class="tech-stack">
+              <span class="tech-tag">React</span><span class="tech-tag">Node.js</span>
+              <span class="tech-tag">API Integration</span><span class="tech-tag">Admin VA</span>
+            </div>
+            <button class="portfolio-button" onclick="openModal('ec')">👁 View Details</button>
+          </div>
+        </div>
+
+        <!-- 3 ── Fintech Dashboard (NEW) -->
+        <div class="portfolio-card" data-modal="ft">
+          <span class="portfolio-badge">FINTECH</span>
+          <div class="portfolio-image">
+            <svg viewBox="0 0 400 215" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <linearGradient id="ftbg" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#0a1e3c"/><stop offset="100%" stop-color="#06101e"/></linearGradient>
+                <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#00d68f"/><stop offset="100%" stop-color="#00a06b"/></linearGradient>
+                <linearGradient id="br" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#ff3860"/><stop offset="100%" stop-color="#c01f40"/></linearGradient>
+                <linearGradient id="bb" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#1a6aff"/><stop offset="100%" stop-color="#0040cc"/></linearGradient>
+              </defs>
+              <rect width="400" height="215" fill="url(#ftbg)"/>
+              <rect x="0" y="0" width="400" height="30" fill="rgba(26,106,255,.14)"/>
+              <text x="13" y="20" font-size="10.5" fill="rgba(255,255,255,.8)" font-family="sans-serif" font-weight="700">💳 FinTrack Dashboard</text>
+              <rect x="332" y="7" width="58" height="16" rx="8" fill="rgba(0,214,143,.18)" stroke="rgba(0,214,143,.4)" stroke-width="1"/>
+              <text x="361" y="19" font-size="8" fill="#00d68f" font-family="sans-serif" text-anchor="middle" font-weight="700">ADMIN ✓</text>
+              <rect x="10" y="40" width="178" height="70" rx="12" fill="rgba(26,106,255,.16)" stroke="rgba(26,106,255,.34)" stroke-width="1"/>
+              <text x="22" y="58" font-size="8.5" fill="rgba(255,255,255,.48)" font-family="sans-serif">Total Balance</text>
+              <text x="22" y="80" font-size="21" fill="#fff" font-family="sans-serif" font-weight="700">₦1,245,000</text>
+              <text x="22" y="98" font-size="8" fill="rgba(0,214,143,.8)" font-family="sans-serif">↑ +12.5% this month</text>
+              <rect x="198" y="40" width="96" height="32" rx="8" fill="rgba(0,214,143,.12)" stroke="rgba(0,214,143,.28)" stroke-width="1"/>
+              <text x="246" y="54" font-size="8" fill="rgba(0,214,143,.7)" font-family="sans-serif" text-anchor="middle">Income</text>
+              <text x="246" y="67" font-size="12.5" fill="#00d68f" font-family="sans-serif" text-anchor="middle" font-weight="700">+₦892k</text>
+              <rect x="302" y="40" width="88" height="32" rx="8" fill="rgba(255,56,96,.1)" stroke="rgba(255,56,96,.28)" stroke-width="1"/>
+              <text x="346" y="54" font-size="8" fill="rgba(255,56,96,.7)" font-family="sans-serif" text-anchor="middle">Expenses</text>
+              <text x="346" y="67" font-size="12.5" fill="#ff3860" font-family="sans-serif" text-anchor="middle" font-weight="700">−₦487k</text>
+              <rect x="10" y="120" width="244" height="78" rx="10" fill="rgba(0,0,0,.22)" stroke="rgba(255,255,255,.05)" stroke-width="1"/>
+              <text x="20" y="136" font-size="8" fill="rgba(255,255,255,.38)" font-family="sans-serif">Monthly Overview</text>
+              <rect x="22" y="160" width="14" height="26" rx="3" fill="url(#bg)"/>
+              <rect x="42" y="150" width="14" height="36" rx="3" fill="url(#bb)"/>
+              <rect x="62" y="165" width="14" height="21" rx="3" fill="url(#br)"/>
+              <rect x="82" y="145" width="14" height="41" rx="3" fill="url(#bg)"/>
+              <rect x="102" y="155" width="14" height="31" rx="3" fill="url(#bb)"/>
+              <rect x="122" y="143" width="14" height="43" rx="3" fill="url(#bg)"/>
+              <rect x="142" y="162" width="14" height="24" rx="3" fill="url(#br)"/>
+              <rect x="162" y="148" width="14" height="38" rx="3" fill="url(#bb)"/>
+              <rect x="182" y="141" width="14" height="45" rx="3" fill="url(#bg)"/>
+              <rect x="202" y="157" width="14" height="29" rx="3" fill="url(#bb)"/>
+              <line x1="18" y1="190" x2="228" y2="190" stroke="rgba(255,255,255,.07)" stroke-width="1"/>
+              <rect x="264" y="80" width="126" height="118" rx="10" fill="rgba(26,106,255,.07)" stroke="rgba(26,106,255,.18)" stroke-width="1"/>
+              <text x="327" y="97" font-size="8.5" fill="rgba(255,255,255,.45)" font-family="sans-serif" text-anchor="middle">Admin Panel</text>
+              <rect x="272" y="104" width="110" height="19" rx="5" fill="rgba(255,255,255,.04)"/>
+              <text x="280" y="117" font-size="7.5" fill="rgba(255,255,255,.6)" font-family="sans-serif">Salary Credit</text>
+              <text x="374" y="117" font-size="7.5" fill="#00d68f" font-family="sans-serif" text-anchor="end">+₦500k</text>
+              <rect x="272" y="128" width="110" height="19" rx="5" fill="rgba(255,255,255,.04)"/>
+              <text x="280" y="141" font-size="7.5" fill="rgba(255,255,255,.6)" font-family="sans-serif">Rent &amp; Bills</text>
+              <text x="374" y="141" font-size="7.5" fill="#ff3860" font-family="sans-serif" text-anchor="end">−₦120k</text>
+              <rect x="272" y="152" width="110" height="19" rx="5" fill="rgba(255,255,255,.04)"/>
+              <text x="280" y="165" font-size="7.5" fill="rgba(255,255,255,.6)" font-family="sans-serif">Transfer</text>
+              <text x="374" y="165" font-size="7.5" fill="#ff3860" font-family="sans-serif" text-anchor="end">−₦75k</text>
+              <rect x="272" y="177" width="48" height="16" rx="8" fill="rgba(26,106,255,.4)" stroke="rgba(26,106,255,.65)" stroke-width="1"/>
+              <text x="296" y="188" font-size="7.5" fill="#fff" font-family="sans-serif" text-anchor="middle" font-weight="700">＋ Add</text>
+              <rect x="326" y="177" width="52" height="16" rx="8" fill="rgba(255,255,255,.07)" stroke="rgba(255,255,255,.14)" stroke-width="1"/>
+              <text x="352" y="188" font-size="7.5" fill="rgba(255,255,255,.65)" font-family="sans-serif" text-anchor="middle">✏ Edit</text>
+            </svg>
+            <div class="img-overlay"></div>
+          </div>
+          <div class="portfolio-content">
+            <h3>Fintech Dashboard</h3>
+            <p>Financial tracking app showing income, expenses, and balance with monthly charts. Admin panel allows authorized users to add and edit transactions in real-time.</p>
+            <div class="tech-stack">
+              <span class="tech-tag">React</span><span class="tech-tag">Chart.js</span>
+              <span class="tech-tag">Node.js</span><span class="tech-tag">Admin Panel</span>
+            </div>
+            <button class="portfolio-button" onclick="openModal('ft')">👁 View Details</button>
+          </div>
+        </div>
+
+        <!-- 4 ── Food Ordering App (NEW) -->
+        <div class="portfolio-card" data-modal="food">
+          <span class="portfolio-badge">FOOD</span>
+          <div class="portfolio-image">
+            <svg viewBox="0 0 400 215" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <radialGradient id="fbg" cx="50%" cy="50%" r="70%"><stop offset="0%" stop-color="#1a0a00"/><stop offset="100%" stop-color="#0e0806"/></radialGradient>
+                <linearGradient id="og" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#ff6b1a"/><stop offset="100%" stop-color="#e04000"/></linearGradient>
+              </defs>
+              <rect width="400" height="215" fill="url(#fbg)"/>
+              <rect x="0" y="0" width="400" height="32" fill="rgba(255,107,26,.14)"/>
+              <text x="13" y="21" font-size="11" fill="#ff6b1a" font-family="sans-serif" font-weight="700">🍽 FoodHub — Order &amp; Delivery</text>
+              <rect x="348" y="7" width="42" height="18" rx="9" fill="rgba(255,107,26,.22)" stroke="rgba(255,107,26,.5)" stroke-width="1"/>
+              <text x="369" y="19.5" font-size="7.5" fill="#ff6b1a" font-family="sans-serif" text-anchor="middle" font-weight="700">● LIVE</text>
+              <rect x="10" y="40" width="58" height="17" rx="8.5" fill="rgba(255,107,26,.28)" stroke="rgba(255,107,26,.5)" stroke-width="1"/>
+              <text x="39" y="52" font-size="7.5" fill="#ff6b1a" font-family="sans-serif" text-anchor="middle" font-weight="700">🍛 Nigerian</text>
+              <rect x="74" y="40" width="52" height="17" rx="8.5" fill="rgba(255,255,255,.05)"/>
+              <text x="100" y="52" font-size="7.5" fill="rgba(255,255,255,.38)" font-family="sans-serif" text-anchor="middle">🍕 Pizza</text>
+              <rect x="132" y="40" width="55" height="17" rx="8.5" fill="rgba(255,255,255,.05)"/>
+              <text x="159" y="52" font-size="7.5" fill="rgba(255,255,255,.38)" font-family="sans-serif" text-anchor="middle">🍔 Burgers</text>
+              <rect x="10" y="65" width="120" height="100" rx="10" fill="rgba(255,107,26,.1)" stroke="rgba(255,107,26,.24)" stroke-width="1"/>
+              <rect x="18" y="72" width="104" height="52" rx="7" fill="rgba(255,107,26,.14)"/>
+              <text x="70" y="102" font-size="34" text-anchor="middle" font-family="sans-serif">🍛</text>
+              <text x="70" y="135" font-size="8.5" fill="rgba(255,255,255,.75)" text-anchor="middle" font-family="sans-serif" font-weight="600">Jollof Rice</text>
+              <text x="70" y="149" font-size="10.5" fill="#ff6b1a" text-anchor="middle" font-family="sans-serif" font-weight="700">₦2,500</text>
+              <text x="70" y="160" font-size="8" fill="rgba(255,255,255,.32)" text-anchor="middle" font-family="sans-serif">⭐ 4.8 (200+)</text>
+              <rect x="138" y="65" width="120" height="100" rx="10" fill="rgba(255,107,26,.08)" stroke="rgba(255,107,26,.18)" stroke-width="1"/>
+              <rect x="146" y="72" width="104" height="52" rx="7" fill="rgba(200,50,20,.12)"/>
+              <text x="198" y="102" font-size="34" text-anchor="middle" font-family="sans-serif">🍖</text>
+              <text x="198" y="135" font-size="8.5" fill="rgba(255,255,255,.75)" text-anchor="middle" font-family="sans-serif" font-weight="600">Suya Platter</text>
+              <text x="198" y="149" font-size="10.5" fill="#ff6b1a" text-anchor="middle" font-family="sans-serif" font-weight="700">₦3,800</text>
+              <text x="198" y="160" font-size="8" fill="rgba(255,255,255,.32)" text-anchor="middle" font-family="sans-serif">⭐ 4.9 (150+)</text>
+              <rect x="270" y="50" width="120" height="150" rx="12" fill="rgba(0,0,0,.3)" stroke="rgba(255,107,26,.22)" stroke-width="1"/>
+              <text x="330" y="68" font-size="9" fill="rgba(255,255,255,.48)" font-family="sans-serif" text-anchor="middle">Your Order</text>
+              <line x1="278" y1="74" x2="382" y2="74" stroke="rgba(255,255,255,.07)" stroke-width="1"/>
+              <text x="278" y="90" font-size="7.5" fill="rgba(255,255,255,.65)" font-family="sans-serif">Jollof Rice ×1</text>
+              <text x="382" y="90" font-size="7.5" fill="#ff6b1a" font-family="sans-serif" text-anchor="end">₦2,500</text>
+              <text x="278" y="105" font-size="7.5" fill="rgba(255,255,255,.65)" font-family="sans-serif">Suya Platter ×2</text>
+              <text x="382" y="105" font-size="7.5" fill="#ff6b1a" font-family="sans-serif" text-anchor="end">₦7,600</text>
+              <text x="278" y="120" font-size="7.5" fill="rgba(255,255,255,.65)" font-family="sans-serif">Delivery fee</text>
+              <text x="382" y="120" font-size="7.5" fill="rgba(255,255,255,.45)" font-family="sans-serif" text-anchor="end">₦500</text>
+              <line x1="278" y1="128" x2="382" y2="128" stroke="rgba(255,255,255,.08)" stroke-width="1"/>
+              <text x="278" y="143" font-size="9" fill="#fff" font-family="sans-serif" font-weight="700">Total</text>
+              <text x="382" y="143" font-size="9" fill="#ff6b1a" font-family="sans-serif" text-anchor="end" font-weight="700">₦10,600</text>
+              <rect x="278" y="150" width="104" height="17" rx="8.5" fill="rgba(255,107,26,.1)"/>
+              <text x="330" y="162" font-size="7.5" fill="rgba(255,107,26,.8)" font-family="sans-serif" text-anchor="middle">🛵 Est. 25 mins</text>
+              <rect x="278" y="173" width="104" height="20" rx="10" fill="url(#og)"/>
+              <text x="330" y="187" font-size="9" fill="#fff" font-family="sans-serif" text-anchor="middle" font-weight="700">Place Order →</text>
+            </svg>
+            <div class="img-overlay"></div>
+          </div>
+          <div class="portfolio-content">
+            <h3>Food Ordering Platform</h3>
+            <p>Food ordering and delivery web app with restaurant menus, real-time order tracking, and Paystack payment integration — built for underserved towns.</p>
+            <div class="tech-stack">
+              <span class="tech-tag">React</span><span class="tech-tag">Node.js</span>
+              <span class="tech-tag">Paystack</span><span class="tech-tag">Real-time</span>
+            </div>
+            <button class="portfolio-button" onclick="openModal('food')">👁 View Details</button>
+          </div>
+        </div>
+
+        <!-- 5 ── Delivery Service -->
+        <div class="portfolio-card" data-modal="del">
+          <div class="portfolio-image">
+            <svg viewBox="0 0 400 215" xmlns="http://www.w3.org/2000/svg">
+              <rect width="400" height="215" fill="#060c18"/>
+              <line x1="0" y1="65" x2="400" y2="65" stroke="rgba(26,106,255,.06)" stroke-width="1"/>
+              <line x1="0" y1="110" x2="400" y2="110" stroke="rgba(26,106,255,.06)" stroke-width="1"/>
+              <line x1="0" y1="155" x2="400" y2="155" stroke="rgba(26,106,255,.06)" stroke-width="1"/>
+              <line x1="75" y1="0" x2="75" y2="215" stroke="rgba(26,106,255,.06)" stroke-width="1"/>
+              <line x1="150" y1="0" x2="150" y2="215" stroke="rgba(26,106,255,.06)" stroke-width="1"/>
+              <line x1="225" y1="0" x2="225" y2="215" stroke="rgba(26,106,255,.06)" stroke-width="1"/>
+              <line x1="300" y1="0" x2="300" y2="215" stroke="rgba(26,106,255,.06)" stroke-width="1"/>
+              <line x1="375" y1="0" x2="375" y2="215" stroke="rgba(26,106,255,.06)" stroke-width="1"/>
+              <polyline points="55,172 120,130 200,98 280,140 345,76" fill="none" stroke="rgba(26,106,255,.38)" stroke-width="2.5" stroke-dasharray="7,5"/>
+              <circle cx="55" cy="172" r="10" fill="rgba(0,214,143,.18)" stroke="#00d68f" stroke-width="2"/>
+              <text x="55" y="176" font-size="8" fill="#00d68f" text-anchor="middle" font-family="sans-serif" font-weight="700">A</text>
+              <circle cx="345" cy="76" r="10" fill="rgba(255,56,96,.18)" stroke="#ff3860" stroke-width="2"/>
+              <text x="345" y="80" font-size="8" fill="#ff3860" text-anchor="middle" font-family="sans-serif" font-weight="700">B</text>
+              <text x="200" y="100" font-size="22" text-anchor="middle" font-family="sans-serif">🚚</text>
+              <rect x="10" y="10" width="128" height="44" rx="10" fill="rgba(9,14,32,.95)" stroke="rgba(26,106,255,.24)" stroke-width="1"/>
+              <text x="20" y="28" font-size="8.5" fill="rgba(255,255,255,.46)" font-family="sans-serif">Active Deliveries</text>
+              <text x="20" y="46" font-size="17" fill="#1a6aff" font-family="sans-serif" font-weight="700">24 Orders</text>
+              <rect x="262" y="10" width="128" height="44" rx="10" fill="rgba(9,14,32,.95)" stroke="rgba(0,214,143,.24)" stroke-width="1"/>
+              <text x="272" y="28" font-size="8.5" fill="rgba(255,255,255,.46)" font-family="sans-serif">Scheduling Time</text>
+              <text x="272" y="46" font-size="17" fill="#00d68f" font-family="sans-serif" font-weight="700">−40%</text>
+              <rect x="10" y="183" width="380" height="26" rx="7" fill="rgba(9,14,32,.96)" stroke="rgba(26,106,255,.14)" stroke-width="1"/>
+              <text x="18" y="200" font-size="8.5" fill="rgba(255,255,255,.44)" font-family="sans-serif">📍 Pickup: 12 Main Street, Lagos</text>
+              <text x="200" y="200" font-size="8.5" fill="rgba(255,255,255,.44)" font-family="sans-serif" text-anchor="middle">→</text>
+              <text x="280" y="200" font-size="8.5" fill="rgba(255,255,255,.44)" font-family="sans-serif">📍 Delivery: 45 Oak Ave</text>
+            </svg>
+            <div class="img-overlay"></div>
+          </div>
+          <div class="portfolio-content">
+            <h3>Delivery Service Platform</h3>
+            <p>On-demand delivery platform with real-time route tracking and automated order management. Reduced scheduling time by 40% through process automation.</p>
+            <div class="tech-stack">
+              <span class="tech-tag">HTML5</span><span class="tech-tag">CSS3</span>
+              <span class="tech-tag">Express.js</span><span class="tech-tag">Automation</span>
+            </div>
+            <button class="portfolio-button" onclick="openModal('del')">👁 View Details</button>
+          </div>
+        </div>
+
+        <!-- 6 ── Telemedicine -->
+        <div class="portfolio-card" data-modal="tm">
+          <div class="portfolio-image">
+            <svg viewBox="0 0 400 215" xmlns="http://www.w3.org/2000/svg">
+              <defs><radialGradient id="mbg" cx="50%" cy="40%" r="60%"><stop offset="0%" stop-color="#0a1e1e"/><stop offset="100%" stop-color="#050f0d"/></radialGradient></defs>
+              <rect width="400" height="215" fill="url(#mbg)"/>
+              <rect x="10" y="16" width="184" height="132" rx="14" fill="rgba(0,100,80,.14)" stroke="rgba(0,200,150,.22)" stroke-width="1"/>
+              <rect x="18" y="24" width="168" height="90" rx="10" fill="rgba(0,100,80,.2)"/>
+              <text x="102" y="75" font-size="44" text-anchor="middle" font-family="sans-serif">👨‍⚕️</text>
+              <text x="102" y="106" font-size="8.5" fill="rgba(255,255,255,.55)" text-anchor="middle" font-family="sans-serif">Dr. Adeyemi</text>
+              <text x="102" y="138" font-size="7.5" fill="rgba(0,214,143,.7)" text-anchor="middle" font-family="sans-serif">● Live Consultation</text>
+              <rect x="152" y="107" width="54" height="42" rx="8" fill="rgba(26,106,255,.14)" stroke="rgba(26,106,255,.28)" stroke-width="1"/>
+              <text x="179" y="133" font-size="20" text-anchor="middle" font-family="sans-serif">👤</text>
+              <rect x="206" y="16" width="184" height="60" rx="10" fill="rgba(0,0,0,.2)" stroke="rgba(0,200,150,.13)" stroke-width="1"/>
+              <text x="216" y="34" font-size="8.5" fill="rgba(0,214,143,.65)" font-family="sans-serif">Today's Appointments</text>
+              <text x="216" y="56" font-size="24" fill="#00d68f" font-family="sans-serif" font-weight="700">200+</text>
+              <text x="382" y="56" font-size="9" fill="rgba(0,214,143,.45)" font-family="sans-serif" text-anchor="end">daily</text>
+              <rect x="206" y="86" width="184" height="62" rx="10" fill="rgba(0,0,0,.2)" stroke="rgba(26,106,255,.13)" stroke-width="1"/>
+              <text x="216" y="104" font-size="8.5" fill="rgba(255,255,255,.38)" font-family="sans-serif">Symptom Log</text>
+              <rect x="216" y="110" width="100" height="5.5" rx="2.7" fill="rgba(255,255,255,.09)"/>
+              <rect x="216" y="110" width="72" height="5.5" rx="2.7" fill="rgba(26,106,255,.5)"/>
+              <rect x="216" y="121" width="100" height="5.5" rx="2.7" fill="rgba(255,255,255,.09)"/>
+              <rect x="216" y="121" width="88" height="5.5" rx="2.7" fill="rgba(0,214,143,.4)"/>
+              <rect x="216" y="132" width="100" height="5.5" rx="2.7" fill="rgba(255,255,255,.09)"/>
+              <rect x="216" y="132" width="55" height="5.5" rx="2.7" fill="rgba(255,170,0,.4)"/>
+              <rect x="10" y="160" width="380" height="44" rx="12" fill="rgba(0,18,14,.65)" stroke="rgba(0,200,150,.13)" stroke-width="1"/>
+              <circle cx="58" cy="182" r="13" fill="rgba(255,56,96,.14)" stroke="rgba(255,56,96,.34)" stroke-width="1"/>
+              <text x="58" y="186.5" font-size="13" text-anchor="middle" font-family="sans-serif">📵</text>
+              <circle cx="98" cy="182" r="13" fill="rgba(26,106,255,.14)" stroke="rgba(26,106,255,.34)" stroke-width="1"/>
+              <text x="98" y="186.5" font-size="13" text-anchor="middle" font-family="sans-serif">🎥</text>
+              <circle cx="138" cy="182" r="13" fill="rgba(26,106,255,.14)" stroke="rgba(26,106,255,.34)" stroke-width="1"/>
+              <text x="138" y="186.5" font-size="13" text-anchor="middle" font-family="sans-serif">🔇</text>
+              <rect x="264" y="170" width="118" height="22" rx="11" fill="rgba(0,214,143,.1)" stroke="rgba(0,214,143,.28)" stroke-width="1"/>
+              <text x="323" y="184" font-size="7.5" fill="#00d68f" text-anchor="middle" font-family="sans-serif" font-weight="700">🔒 HIPAA Compliant</text>
+            </svg>
+            <div class="img-overlay"></div>
+          </div>
+          <div class="portfolio-content">
+            <h3>Telemedicine Platform</h3>
+            <p>Virtual healthcare platform for doctor-patient video consultations with symptom logging and automated appointment scheduling. 200+ daily consultations.</p>
+            <div class="tech-stack">
+              <span class="tech-tag">React</span><span class="tech-tag">Firebase</span>
+              <span class="tech-tag">Admin VA</span><span class="tech-tag">Data Mgmt</span>
+            </div>
+            <button class="portfolio-button" onclick="openModal('tm')">👁 View Details</button>
+          </div>
+        </div>
+
+      </div><!-- /portfolio-grid -->
+    </div>
+  </div>
+</section>
+
+<!-- ── CONTACT ────────────────────────────────────────── -->
+<section id="contact" class="section">
+  <div class="container">
+    <div class="box" data-anim>
+      <div class="section-header">
+        <h2 class="section-title">Let's Connect</h2>
+        <p class="section-subtitle">Ready to transform your ideas into reality? Let's discuss your project</p>
+      </div>
+      <div class="contact-content">
+        <div class="contact-info">
+          <h3>Get In Touch</h3>
+          <p style="color:var(--gray);margin-bottom:2rem;font-size:.95rem">Ready to bring your vision to life? I'm here to help with your web development and virtual assistant needs.</p>
+          <div class="contact-item">
+            <div class="contact-icon">✉️</div>
+            <div><strong>Email</strong><p>bolajioladunjoye1@gmail.com</p></div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-icon">📞</div>
+            <div><strong>Phone</strong><p>+234 702 674 533</p></div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-icon">📍</div>
+            <div><strong>Location</strong><p>Ibadan, Nigeria</p></div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-icon">🕐</div>
+            <div><strong>Availability</strong><p>Mon – Fri, 9AM – 6PM WAT</p></div>
+          </div>
+          <div>
+            <h4 style="margin-bottom:.9rem;color:var(--blue);font-size:.9rem;font-weight:700;letter-spacing:.05em;text-transform:uppercase">Follow Me</h4>
+            <div class="social-links">
+              <a href="https://www.linkedin.com/in/alexis-oladunjoye" target="_blank" rel="noopener noreferrer" class="social-link" title="LinkedIn" aria-label="LinkedIn">in</a>
+              <a href="https://github.com/Frontmine" target="_blank" rel="noopener noreferrer" class="social-link" title="GitHub" aria-label="GitHub" style="font-size:.72rem">git</a>
+              <a href="https://www.instagram.com/homobeejay" target="_blank" rel="noopener noreferrer" class="social-link" title="Instagram" aria-label="Instagram">📷</a>
+            </div>
+          </div>
+        </div>
+
+        <form class="contact-form" id="contactForm" name="contact" method="POST" data-netlify="true" netlify-honeypot="bot-field">
+          <!-- Netlify required hidden fields -->
+          <input type="hidden" name="form-name" value="contact">
+          <p style="display:none"><input name="bot-field"></p>
+
+          <div class="form-group"><input type="text" name="name" class="form-input" placeholder="Your Name" required></div>
+          <div class="form-group"><input type="email" name="email" class="form-input" placeholder="Your Email" required></div>
+          <div class="form-group"><input type="text" name="subject" class="form-input" placeholder="Subject" required></div>
+          <div class="form-group"><textarea name="message" class="form-textarea" placeholder="Your Message" rows="5" required></textarea></div>
+
+          <!-- Success message (hidden until form submits) -->
+          <div id="formSuccess" style="display:none; background:rgba(0,214,143,.1); border:1px solid rgba(0,214,143,.3); border-radius:12px; padding:1.2rem 1.5rem; color:#00d68f; font-weight:500; font-size:.95rem; text-align:center;">
+            ✅ Message sent! I'll get back to you soon.
+          </div>
+
+          <button type="submit" class="submit-button" id="submitBtn">
+            <span>✈️</span><span>Send Message</span>
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── MODAL ──────────────────────────────────────────── -->
+<div class="modal-overlay" id="modalOverlay" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+  <div class="modal-sheet" id="modalSheet">
+    <div class="modal-drag"></div>
+    <button class="modal-close" id="modalClose" aria-label="Close">✕</button>
+    <div id="modalContent"></div>
+  </div>
+</div>
+
+<!-- ── SCRIPTS ────────────────────────────────────────── -->
+<script>
+/* ─── MODAL DATA ─────────────────────────────────────── */
+const PROJECTS = {
+  pq: {
+    type: 'Web Platform + VA',
+    title: 'Past Questions Platform',
+    desc: 'A comprehensive academic past-questions platform integrated with Flutterwave for payments. Students can browse, purchase, and download past exam papers. As VA, I managed user registrations, handled customer queries, processed refunds, and maintained content accuracy.',
+    metrics: [
+      { val:'500+', lbl:'Transactions Processed' },
+      { val:'99.9%', lbl:'Uptime Maintained' },
+      { val:'−60%', lbl:'Manual Process Reduction' },
+    ],
+    tags:['JavaScript','Node.js','Flutterwave API','Admin Support','User Management'],
+    features:[
+      'Integrated Flutterwave payment gateway with webhook handling',
+      'Automated user onboarding and email confirmation flow',
+      'Admin panel for content upload and transaction review',
+      'Responsive mobile-first UI for student access on any device',
+      'Virtual assistant support: emails, refunds, and user queries',
+    ]
+  },
+  ec: {
+    type: 'E-Commerce App + VA',
+    title: 'E-Commerce Application',
+    desc: 'A mobile-responsive e-commerce platform with a full seller dashboard, product listings, cart, and checkout. As VA, I handled product data entry, inventory updates, and automated customer support workflows, reducing manual admin work significantly.',
+    metrics:[
+      { val:'1,000+', lbl:'Daily Active Users' },
+      { val:'Real-time', lbl:'Inventory Sync' },
+      { val:'3x', lbl:'Workflow Speed-up' },
+    ],
+    tags:['React','Node.js','API Integration','Admin Automation','Seller Dashboard'],
+    features:[
+      'Full-stack e-commerce with cart, checkout, and order management',
+      'Seller dashboard for product listing and inventory management',
+      'Automated customer support workflows and follow-up emails',
+      'Product data entry and category management as VA',
+      'Mobile-first design with fast load times',
+    ]
+  },
+  ft: {
+    type: 'Fintech Dashboard',
+    title: 'Fintech Dashboard',
+    desc: 'A financial tracking web app with an interactive dashboard showing income, expenses, and account balance with monthly chart breakdowns. The admin panel gives authorized users the ability to add new transactions, edit existing entries, and categorize spending in real-time.',
+    metrics:[
+      { val:'₦1.2M+', lbl:'Balance Tracked' },
+      { val:'Real-time', lbl:'Transaction Updates' },
+      { val:'100%', lbl:'Audit Trail' },
+    ],
+    tags:['React','Chart.js','Node.js','Admin Panel','Financial Data'],
+    features:[
+      'Live dashboard with income, expense, and balance overview',
+      'Interactive monthly bar chart for financial trend analysis',
+      'Admin panel: add, edit, and delete transaction entries',
+      'Role-based access control for admin vs viewer accounts',
+      'Transaction history with search, filter, and export',
+    ]
+  },
+  food: {
+    type: 'Food Delivery App',
+    title: 'Food Ordering Platform',
+    desc: 'A food ordering and delivery web app designed for underserved towns overlooked by major platforms. Users browse restaurant menus, add items to cart, track orders in real-time, and pay via Paystack. Built for low-connectivity environments with an offline-first approach.',
+    metrics:[
+      { val:'25 min', lbl:'Avg Delivery Time' },
+      { val:'Paystack', lbl:'Payment Gateway' },
+      { val:'Offline-first', lbl:'Low Connectivity' },
+    ],
+    tags:['React','Node.js','Paystack','Real-time Tracking','WhatsApp Onboarding'],
+    features:[
+      'Restaurant menus with category filters and search',
+      'Real-time order tracking with delivery ETA',
+      'Paystack payment integration for seamless checkout',
+      'WhatsApp-based vendor onboarding for easy setup',
+      'Offline-first architecture for low-connectivity environments',
+    ]
+  },
+  del: {
+    type: 'Delivery Platform + VA',
+    title: 'Delivery Service Platform',
+    desc: 'An on-demand delivery website with real-time route tracking, automated order dispatch, and delivery scheduling. As VA, I set up automated notification systems for riders and customers, reducing scheduling delays by 40% and improving delivery accuracy.',
+    metrics:[
+      { val:'−40%', lbl:'Scheduling Time Saved' },
+      { val:'Auto', lbl:'Notification System' },
+      { val:'24/7', lbl:'Order Tracking' },
+    ],
+    tags:['HTML5','CSS3','Express.js','Task Automation','Notification System'],
+    features:[
+      'Real-time order tracking with map-based route display',
+      'Automated SMS/email notifications for pickup and delivery',
+      'Admin order management with dispatch and status updates',
+      'Delivery scheduling automation reducing manual effort by 40%',
+      'Mobile-responsive design for rider and customer dashboards',
+    ]
+  },
+  tm: {
+    type: 'Healthcare Platform + VA',
+    title: 'Telemedicine Platform',
+    desc: 'A virtual healthcare platform enabling secure doctor-patient video consultations, symptom logging, and appointment management. As VA, I managed patient intake workflows, appointment scheduling, and maintained HIPAA-compliant data entry practices.',
+    metrics:[
+      { val:'200+', lbl:'Daily Consultations' },
+      { val:'HIPAA', lbl:'Compliant Data' },
+      { val:'Auto', lbl:'Appointment Scheduling' },
+    ],
+    tags:['React','Firebase','Admin Support','Data Management','HIPAA'],
+    features:[
+      'Secure video consultation rooms with doctor-patient access',
+      'Symptom logging and medical history tracking',
+      'Automated appointment booking and reminder system',
+      'HIPAA-compliant patient data handling and storage',
+      'VA support: intake forms, scheduling, and patient comms',
+    ]
+  }
+};
+
+/* ─── MODAL OPEN / CLOSE ─────────────────────────────── */
+function openModal(id) {
+  const p = PROJECTS[id];
+  if (!p) return;
+  const overlay = document.getElementById('modalOverlay');
+  document.getElementById('modalContent').innerHTML = `
+    <span class="modal-type">${p.type}</span>
+    <h2 class="modal-title" id="modalTitle">${p.title}</h2>
+    <p class="modal-desc">${p.desc}</p>
+    <div class="modal-metrics">
+      ${p.metrics.map(m=>`<div class="metric-box"><span class="metric-val">${m.val}</span><span class="metric-lbl">${m.lbl}</span></div>`).join('')}
+    </div>
+    <p class="modal-sub">Tech Stack</p>
+    <div class="modal-tags">${p.tags.map(t=>`<span class="tech-tag">${t}</span>`).join('')}</div>
+    <p class="modal-sub">Key Features</p>
+    <ul class="modal-features">${p.features.map(f=>`<li>${f}</li>`).join('')}</ul>
+  `;
+  overlay.classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeModal() {
+  document.getElementById('modalOverlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
+document.getElementById('modalClose').addEventListener('click', closeModal);
+document.getElementById('modalOverlay').addEventListener('click', e => {
+  if (e.target === document.getElementById('modalOverlay')) closeModal();
+});
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+
+/* ─── NAV ────────────────────────────────────────────── */
+const navToggle   = document.getElementById('navToggle');
+const navMenu     = document.getElementById('navMenu');
+const navBackdrop = document.getElementById('navBackdrop');
+let menuOpen = false;
+
+function toggleNav(force) {
+  menuOpen = force !== undefined ? force : !menuOpen;
+  navToggle.textContent   = menuOpen ? '✕' : '☰';
+  navMenu.classList.toggle('open', menuOpen);
+  navBackdrop.classList.toggle('open', menuOpen);
+}
+navToggle.addEventListener('click', () => toggleNav());
+navBackdrop.addEventListener('click', () => toggleNav(false));
+document.querySelectorAll('.nav-menu a').forEach(a => {
+  a.addEventListener('click', () => {
+    toggleNav(false);
+    document.querySelectorAll('.nav-menu a').forEach(l => l.classList.remove('active'));
+    a.classList.add('active');
+  });
+});
+
+/* active nav on scroll */
+window.addEventListener('scroll', () => {
+  const pos = window.scrollY + window.innerHeight * .45;
+  document.querySelectorAll('.section').forEach(sec => {
+    if (pos >= sec.offsetTop && pos < sec.offsetTop + sec.offsetHeight) {
+      const id = sec.getAttribute('id');
+      document.querySelectorAll('.nav-menu a').forEach(a => {
+        a.classList.toggle('active', a.getAttribute('href') === `#${id}`);
+      });
+    }
+  });
+}, { passive:true });
+
+/* ─── TYPEWRITER ─────────────────────────────────────── */
+(function typewriter() {
+  const el  = document.getElementById('twText');
+  const phrases = [
+    'Crafting Digital Solutions with Precision & Efficiency',
+    'Building Modern Web Applications',
+    'Streamlining Business Workflows',
+    'Turning Ideas into Reality'
+  ];
+  let pi = 0, ci = 0, deleting = false;
+  function tick() {
+    const phrase = phrases[pi];
+    if (!deleting) {
+      el.textContent = phrase.slice(0, ++ci);
+      if (ci === phrase.length) { deleting = true; setTimeout(tick, 2200); return; }
+    } else {
+      el.textContent = phrase.slice(0, --ci);
+      if (ci === 0) { deleting = false; pi = (pi + 1) % phrases.length; setTimeout(tick, 400); return; }
+    }
+    setTimeout(tick, deleting ? 40 : 58);
+  }
+  setTimeout(tick, 900);
+})();
+
+/* ─── SCROLL-TRIGGERED STACKING ANIMATIONS ──────────── */
+const ioOptions = { threshold: 0.12 };
+
+/* section boxes */
+const boxObserver = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) { e.target.classList.add('visible'); boxObserver.unobserve(e.target); }
+  });
+}, ioOptions);
+document.querySelectorAll('.box[data-anim]').forEach(el => boxObserver.observe(el));
+
+/* service cards staggered */
+const svcObserver = new IntersectionObserver(entries => {
+  if (entries.some(e => e.isIntersecting)) {
+    document.querySelectorAll('.service-card').forEach((c,i) => {
+      setTimeout(() => c.classList.add('visible'), i * 130);
+    });
+    svcObserver.disconnect();
+  }
+}, { threshold: 0.1 });
+const svcGrid = document.getElementById('servicesGrid');
+if (svcGrid) svcObserver.observe(svcGrid);
+
+/* portfolio cards staggered stacking */
+const cardObserver = new IntersectionObserver(entries => {
+  if (entries.some(e => e.isIntersecting)) {
+    document.querySelectorAll('.portfolio-card').forEach((c,i) => {
+      c.style.transition = `transform .65s ${i*0.11}s cubic-bezier(.16,1,.3,1), opacity .65s ${i*0.11}s, border-color .3s, box-shadow .3s`;
+      setTimeout(() => c.classList.add('visible'), i * 110);
+    });
+    cardObserver.disconnect();
+  }
+}, { threshold: 0.06 });
+const pgrid = document.getElementById('portfolioGrid');
+if (pgrid) cardObserver.observe(pgrid);
+
+/* ─── COUNTER ANIMATION ──────────────────────────────── */
+function animCount(el, target) {
+  let v = 0;
+  const step = target / 50;
+  const t = setInterval(() => {
+    v = Math.min(v + step, target);
+    el.textContent = Math.floor(v) + '+';
+    if (v >= target) clearInterval(t);
+  }, 32);
+}
+const countObserver = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      document.querySelectorAll('[data-count]').forEach(el => animCount(el, parseInt(el.dataset.count)));
+      countObserver.disconnect();
+    }
+  });
+}, { threshold: 0.5 });
+const statsEl = document.querySelector('.stats-grid');
+if (statsEl) countObserver.observe(statsEl);
+
+/* ─── CONTACT FORM — Netlify Forms ───────────────────── */
+document.getElementById('contactForm').addEventListener('submit', function(e) {
+  e.preventDefault();
+  const form    = this;
+  const btn     = document.getElementById('submitBtn');
+  const success = document.getElementById('formSuccess');
+
+  btn.innerHTML = '<span>⭕</span><span>Sending…</span>';
+  btn.disabled  = true;
+
+  fetch('/', {
+    method:  'POST',
+    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+    body:    new URLSearchParams(new FormData(form)).toString()
+  })
+  .then(() => {
+    // Show success message
+    success.style.display = 'block';
+    btn.innerHTML = '<span>✅</span><span>Message Sent!</span>';
+    btn.style.background = 'linear-gradient(135deg,#00a06b,#00d68f)';
+    form.reset();
+
+    // Reset button and hide success after 5s
+    setTimeout(() => {
+      btn.innerHTML        = '<span>✈️</span><span>Send Message</span>';
+      btn.style.background = '';
+      btn.disabled         = false;
+      success.style.display = 'none';
+    }, 5000);
+  })
+  .catch(() => {
+    btn.innerHTML = '<span>❌</span><span>Failed — Try Again</span>';
+    btn.style.background = 'linear-gradient(135deg,#c01f40,#ff3860)';
+    setTimeout(() => {
+      btn.innerHTML        = '<span>✈️</span><span>Send Message</span>';
+      btn.style.background = '';
+      btn.disabled         = false;
+    }, 3500);
+  });
+});
+</script>
+</body>
+</html>
